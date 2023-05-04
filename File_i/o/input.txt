@@ -1,0 +1,17 @@
+A prime number is an integer greater than 1
+, which has exactly two divisors. For example, 7
+ is a prime, since it has two divisors {1,7}
+. A composite number is an integer greater than 1
+, which has more than two different divisors.
+
+Note that the integer 1
+ is neither prime nor composite.
+
+Let's look at some composite number v
+. It has several divisors: some divisors are prime, others are composite themselves. If the number of prime divisors of v
+ is less or equal to the number of composite divisors, let's name v
+ as strongly composite.
+
+For example, number 12
+ has 6
+ divisors:

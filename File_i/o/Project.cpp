@@ -50,7 +50,6 @@ void Primeinitialization::primefiller()
 }
 class encryption : public Primeinitialization
 {
-    // Constructor for initlizing and filling our set of primes//
 protected:
     int private_key;
 
@@ -69,6 +68,8 @@ vector<int> encryption::encoder(string message)
         form.push_back(encrypt((int)letter));
     return form;
 }
+//Encrytpion based on the RSA algorithm rule and the use of public key is done by this function to generate 
+//encrypted text.
 long long int encryption::encrypt(double message)
 {
     int e = public_key;
@@ -80,6 +81,8 @@ long long int encryption::encrypt(double message)
     }
     return encrpyted_text;
 }
+//Keys generator function to generate both the public key and private key which will be used for encryption and de
+//cryption later on.
 void encryption::keys_generator()
 {
     int prime1 = pickrandomprime();
@@ -116,7 +119,33 @@ class decryption:public encryption
     }
     long long int decrypt(int encrpyted_text);
     string decoder(vector<int>encoded);
+    void print_encrypted_text(vector<int>&coded,string input);
+    void print_decrypted_text(vector<int>,decryption &d);
 };
+//Function for the printing of the decrypted text//
+void decryption::print_decrypted_text(vector<int>v,decryption &d){
+     cout<<"The decrypted text of the above cipher text is :-"<<endl;    
+     cout<<d.decoder(v)<<endl;
+
+}
+//Function for printing the encrypted text//
+void decryption::print_encrypted_text(vector<int>&coded,string input){
+    cout<<"The message meant for encryption was :-"<<" "<<input<<endl;
+    cout<<"The encrypted message is as follows :-"<<endl;
+    fstream fo("Encrypted_text.txt",ios_base::app);
+    fo<<endl;
+    for (auto &p : coded){
+        int n = p;
+        fo<<n;
+        cout<<p;
+    }
+    fo<<endl;
+    fo<<"End of encrypted value for :: the input text =="<<input;
+    cout<<endl;
+}
+//Decrypter function that will take the value of the integer assigned to a particular character of the 
+//input string and will convert it back to the character's ascii value that will be intrinsic typecasting and 
+//will convert it back to the character form and return a string thorugh the decoder function.
 long long int decryption::decrypt(int encrpyted_text){
     int d = private_key;
 	long long int decrypted = 1;
@@ -135,19 +164,29 @@ string s;
 		s += decrypt(num);
 	return s;
 }
+//Function to read any text file provided by the user and to generate a string that will be used as input
+//further.
+string file_reader(string file_name){
+    string empty = "";
+    fstream fo(file_name,ios_base::in);
+    char ch;
+    while(fo.good() == true){
+        fo>>noskipws>>ch;
+    empty.push_back(ch);
+    }
+    return empty;
+}
 int main()
 {
-    string name; 
-    name = "123456";
-    decryption d;
-    d.keys_generator();
-    vector<int>coded = d.encoder(name);
-    cout<<"The message meant for encryption was :-"<<" "<<name<<endl;
-    cout<<"The encrypted message is as follows :-"<<endl;
-    for (auto &p : coded)
-		cout << p;
-   cout<<endl;     
-     cout<<"The decrypted text of the above cipher text is :-"<<endl;    
-     cout<<d.decoder(coded)<<endl;
+    string path;
+    cout << "Enter path of the file you want to encrypt-:" << endl;
+    cin >>  path;
+    cout << "Path is " << path << endl;
+    string name = file_reader(path);
+     decryption d;
+     d.keys_generator();
+     vector<int>coded = d.encoder(name);
+     d.print_encrypted_text(coded,name);
+     d.print_decrypted_text(coded,d);
     
 }
