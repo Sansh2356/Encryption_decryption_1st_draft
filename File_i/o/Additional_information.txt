@@ -1,0 +1,9 @@
+use of euler totient function while calculating public and private key in rsa
+Choosing any 2 possible large prime numbers,expressing euler's function as (p-1)*(q-1) = phi(n).
+where p and q are the prime number respectively.
+defining d and e as the public and private key for encrytping the given text
+public key = n and e e >1 & e<phi(n) and similarly gcd(e,phi(n)) should also be equal to 1 any number satisfying
+this particualr conditions will be applicable to be taken as key for encryption.
+private key will be consisting of d and n where d will be equal = "ed % phi(n) = 1".
+encrytpion will be cipher text will be equal = c = m^e % n.
+decrypted text will be equal to m = c^d%n.
